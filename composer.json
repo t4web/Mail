@@ -1,0 +1,43 @@
+{
+  "name": "t4web/mail",
+  "description": "ZF2 Module. Send mails, managing mail templates and mail log.",
+  "type": "zf2-module",
+  "license": "BSD-3-Clause",
+  "keywords": [ "zf2", "zf2 module", "module", "mail" ],
+  "homepage": "https://github.com/t4web/Migrations",
+  "require": {
+    "php": ">=5.5",
+
+    "zendframework/zend-db": "^2.5",
+    "zendframework/zend-modulemanager": "^2.5",
+    "zendframework/zend-servicemanager": "^2.5",
+    "zendframework/zend-console": "^2.5",
+    "zendframework/zend-mvc": "^2.5",
+    "zendframework/zend-text": "^2.5",
+
+    "acelaya/zf2-acmailer": "~5.2.0"
+  },
+  "require-dev" : {
+    "phpunit/phpunit": "^4.8",
+    "squizlabs/php_codesniffer": "^2.3"
+  },
+  "autoload": {
+    "psr-4": {
+      "T4web\\Mail\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "T4web\\MailTest\\": "tests/"
+    }
+  },
+  "scripts": {
+    "check": [
+      "@cs",
+      "@test"
+    ],
+    "cs": "phpcs",
+    "cs-fix": "phpcbf",
+    "test": "phpunit --colors=always"
+  }
+}
