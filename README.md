@@ -1,5 +1,9 @@
 # Mail
 
+[![Build Status](https://travis-ci.org/t4web/Mail.svg?branch=master)](https://travis-ci.org/t4web/Mail)
+[![codecov.io](http://codecov.io/github/t4web/Mail/coverage.svg?branch=master)](http://codecov.io/github/t4web/Mail?branch=master)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/t4web/Mail/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/t4web/Mail/?branch=master)
+
 ZF2 Module. Send mails, managing mail templates and mail log.
 
 Installation

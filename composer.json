@@ -42,7 +42,7 @@
       "@cs",
       "@test"
     ],
-    "cs": "phpcs",
+    "cs": "phpcs -n",
     "cs-fix": "phpcbf",
     "test": "phpunit --colors=always"
   }
