@@ -21,4 +21,10 @@ return [
 
     'console' => require_once 'console.config.php',
     'controllers' => require_once 'controllers.config.php',
+
+    'view_manager' => [
+        'template_path_stack' => [
+            __DIR__ . '/../view',
+        ],
+    ],
 ];
