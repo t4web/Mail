@@ -28,4 +28,4 @@ after_success:
 
 notifications:
   email:
-- gulturyan@gmail.com
+    - gulturyan@gmail.com
