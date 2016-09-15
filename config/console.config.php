@@ -5,7 +5,7 @@ namespace T4web\Mail;
 return [
     'router' => [
         'routes' => [
-            'migration-init' => [
+            'mail-init' => [
                 'type' => 'simple',
                 'options' => [
                     'route' => 'mail init',

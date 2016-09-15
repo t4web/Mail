@@ -27,22 +27,6 @@ class InitController extends AbstractActionController
             throw new \RuntimeException('You can only use this action from a console!');
         }
 
-        $table = new Ddl\CreateTable('mail_templates');
-        $table->addColumn(new Ddl\Column\Integer('id', false, null, ['autoincrement' => true]));
-        $table->addColumn(new Ddl\Column\Char('name', 100, true));
-        $table->addColumn(new Ddl\Column\Integer('type'));
-        $table->addColumn(new Ddl\Column\Integer('layout_id'));
-        $table->addColumn(new Ddl\Column\Char('subject', 250, true));
-        $table->addColumn(new Ddl\Column\Text('body', null, true));
-        $table->addColumn(new Ddl\Column\Text('allowed_vars', null, true));
-        $table->addColumn(new Ddl\Column\Datetime('dt_created', false));
-        $table->addColumn(new Ddl\Column\Datetime('dt_updated', false));
-        $table->addConstraint(new Ddl\Constraint\PrimaryKey('id'));
-        $table->addConstraint(new Ddl\Constraint\UniqueKey('name'));
-
-        $this->createTable($table);
-
-
         $table = new Ddl\CreateTable('mail_log');
         $table->addColumn(new Ddl\Column\Integer('id', false, null, ['autoincrement' => true]));
         $table->addColumn(new Ddl\Column\Char('mail_from', 100, true));
