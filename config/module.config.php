@@ -3,6 +3,8 @@
 namespace T4web\Mail;
 
 return [
+    'sebaks-view' => include 'sebaks-view.config.php',
+    
     't4web-mail' => [
         'from-email' => 'support@first-season.com',
         'from-name' => '1season',

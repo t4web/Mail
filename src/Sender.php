@@ -46,7 +46,16 @@ class Sender
         $message = $this->mailAssembler->assemble($to, $template, $data);
         $this->mailTransport->send($message);
 
-        $event = new Event();
+        $event = new Event(
+            'mail-sended',
+            $this,
+            [
+                'to' => $to,
+                'template' => $template,
+                'message' => $message,
+                'data' => $data,
+            ]
+        );
         $this->eventManager->trigger($event);
     }
 }
