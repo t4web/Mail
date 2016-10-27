@@ -29,14 +29,14 @@ class InitController extends AbstractActionController
 
         $table = new Ddl\CreateTable('mail_log');
         $table->addColumn(new Ddl\Column\Integer('id', false, null, ['autoincrement' => true]));
-        $table->addColumn(new Ddl\Column\Char('mail_from', 100, true));
-        $table->addColumn(new Ddl\Column\Char('mail_to', 100, true));
-        $table->addColumn(new Ddl\Column\Char('subject', 250, true));
-        $table->addColumn(new Ddl\Column\Integer('layout_id'));
-        $table->addColumn(new Ddl\Column\Integer('template_id'));
+        $table->addColumn(new Ddl\Column\Varchar('mail_from', 100, true));
+        $table->addColumn(new Ddl\Column\Varchar('mail_to', 100, true));
+        $table->addColumn(new Ddl\Column\Varchar('subject', 250, true));
+        $table->addColumn(new Ddl\Column\Char('layout', 50, true));
+        $table->addColumn(new Ddl\Column\Char('template', 50, true));
         $table->addColumn(new Ddl\Column\Text('body', null, true));
         $table->addColumn(new Ddl\Column\Text('calculated_vars', null, true));
-        $table->addColumn(new Ddl\Column\Datetime('dt_created', false));
+        $table->addColumn(new Ddl\Column\Datetime('created_dt', false));
         $table->addConstraint(new Ddl\Constraint\PrimaryKey('id'));
 
         $this->createTable($table);

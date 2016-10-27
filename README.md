@@ -58,21 +58,23 @@ For define mail templates, describe it in config:
 
     'templates' => [
 
-        // Template name
-        'feedback-answer' => [
+        // Template id
+        T4web\Mail\Template::FEEDBACK_ANSWER => [
             'subject' => 'Feedback answer',
             'template' => 't4web-mail/template/feedback-answer',
-            'layout' => 'default',
+            'layout' => T4web\Mail\Template::LAYOUT_DEFAULT,
         ],
     ],
 
     'layout' => [
 
-        // Layout name => layout template
-        'default' => 't4web-mail/layout/default',
+        // Layout id => layout template
+        T4web\Mail\Template::LAYOUT_DEFAULT => 't4web-mail/layout/default',
     ],
 ],
 ```
+
+Template may be like this [template/feedback-answer.phtml](https://github.com/t4web/Mail/blob/master/view/t4web-mail/template/feedback-answer.phtml)
 
 Using
 ------------
@@ -84,5 +86,5 @@ $data = [
     'message' => 'My message',
     'answer' => 'My answer',
 ];
-$this->sender->send($to, 'feedback-answer', $data);
+$this->sender->send($to, \T4web\Mail\Template::FEEDBACK_ANSWER, $data);
 ```

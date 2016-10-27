@@ -4,7 +4,7 @@ namespace T4web\Mail;
 
 return [
     'contents' => [
-        'admin-log-list' => [
+        'admin-MailLogEntry-list' => [
             'extend' => 'admin-list',
             'data' => [
                 'static' => [
@@ -34,53 +34,50 @@ return [
                                 ],
                             ],
                         ],
-                        'filter-message' => [
+                        'filter-to' => [
                             'template' => 't4web-admin/block/form-element-text',
                             'capture' => 'form-element',
                             'data' => [
                                 'static' => [
-                                    'name' => 'message_like',
-                                    'label' => 'Message',
+                                    'name' => 'mailTo_like',
+                                    'label' => 'To',
                                 ],
                                 'fromParent' => [
-                                    'message_like' => 'value'
+                                    'mailTo_like' => 'value'
                                 ],
                             ],
                         ],
-                        'filter-scope' => [
+                        'filter-layout' => [
                             'template' => 't4web-admin/block/form-element-select',
                             'capture' => 'form-element',
                             'data' => [
                                 'static' => [
-                                    'name' => 'scope_equalTo',
-                                    'label' => 'Scope',
+                                    'name' => 'layoutId_equalTo',
+                                    'label' => 'Layout',
                                     'options' =>  [
                                         '' => "All",
-                                        1 => "General",
+                                        Template::LAYOUT_DEFAULT => "default",
                                     ],
                                 ],
                                 'fromParent' => [
-                                    'scope_equalTo' => 'value'
+                                    'layoutId_equalTo' => 'value'
                                 ],
                             ],
                         ],
-                        'filter-priority' => [
+                        'filter-template' => [
                             'template' => 't4web-admin/block/form-element-select',
                             'capture' => 'form-element',
                             'data' => [
                                 'static' => [
-                                    'name' => 'priority_equalTo',
-                                    'label' => 'Priority',
+                                    'name' => 'templateId_equalTo',
+                                    'label' => 'Template',
                                     'options' =>  [
                                         '' => 'All',
-//                                        Logger::PRIORITY_ERR => 'ERR',
-//                                        Logger::PRIORITY_WARN => 'WARN',
-//                                        Logger::PRIORITY_INFO => 'INFO',
-//                                        Logger::PRIORITY_DEBUG => 'DEBUG',
+                                        Template::FEEDBACK_ANSWER => 'feedback-answer',
                                     ],
                                 ],
                                 'fromParent' => [
-                                    'priority_equalTo' => 'value'
+                                    'templateId_equalTo' => 'value'
                                 ],
                             ],
                         ],
@@ -101,7 +98,7 @@ return [
                         'form-button-clear' => [
                             'data' => [
                                 'static' => [
-                                    'routeName' => 'admin-log-list',
+                                    'routeName' => 'admin-MailLogEntry-list',
                                 ],
                             ],
                         ],
@@ -133,33 +130,43 @@ return [
                                         ],
                                     ],
                                 ],
-                                'table-th-message' => [
+                                'table-th-to' => [
                                     'template' => 't4web-admin/block/table-th',
                                     'capture' => 'table-td',
                                     'data' => [
                                         'static' => [
-                                            'value' => 'Message',
-                                            'width' => '60%',
+                                            'value' => 'To',
+                                            'width' => '20%',
                                         ],
                                     ],
                                 ],
-                                'table-th-scope' => [
+                                'table-th-subject' => [
                                     'template' => 't4web-admin/block/table-th',
                                     'capture' => 'table-td',
                                     'data' => [
                                         'static' => [
-                                            'value' => 'Scope',
+                                            'value' => 'Subject',
+                                            'width' => '35%',
+                                        ],
+                                    ],
+                                ],
+                                'table-th-layout' => [
+                                    'template' => 't4web-admin/block/table-th',
+                                    'capture' => 'table-td',
+                                    'data' => [
+                                        'static' => [
+                                            'value' => 'Layout',
                                             'width' => '10%',
                                         ],
                                     ],
                                 ],
-                                'table-th-priority' => [
+                                'table-th-template' => [
                                     'template' => 't4web-admin/block/table-th',
                                     'capture' => 'table-td',
                                     'data' => [
                                         'static' => [
-                                            'value' => 'Priority',
-                                            'width' => '5%',
+                                            'value' => 'Template',
+                                            'width' => '10%',
                                         ],
                                     ],
                                 ],
@@ -169,7 +176,7 @@ return [
                                     'data' => [
                                         'static' => [
                                             'value' => 'Created date',
-                                            'width' => '15%',
+                                            'width' => '10%',
                                         ],
                                     ],
                                 ],
@@ -178,8 +185,8 @@ return [
                                     'capture' => 'table-td',
                                     'data' => [
                                         'static' => [
-                                            'value' => 'Extras',
-                                            'width' => '5%',
+                                            'value' => 'Vars',
+                                            'width' => '10%',
                                         ],
                                     ],
                                 ],
@@ -199,44 +206,42 @@ return [
                                         'fromParent' => ['id' => 'value'],
                                     ],
                                 ],
-                                'table-td-message' => [
+                                'table-td-to' => [
                                     'template' => 't4web-admin/block/table-td',
                                     'capture' => 'table-td',
                                     'data' => [
-                                        'fromParent' => ['message' => 'value'],
+                                        'fromParent' => ['mailTo' => 'value'],
                                     ],
                                 ],
-                                'table-td-scope' => [
+                                'table-td-subject' => [
+                                    'template' => 't4web-admin/block/table-td',
+                                    'capture' => 'table-td',
+                                    'data' => [
+                                        'fromParent' => ['subject' => 'value'],
+                                    ],
+                                ],
+                                'table-td-layout' => [
                                     'template' => 't4web-admin/block/table-td-labeled',
                                     'capture' => 'table-td',
                                     'data' => [
                                         'static' => [
                                             'textValueMap' => [
-                                                1 => 'General',
+                                                1 => 'default',
                                             ],
                                         ],
-                                        'fromParent' => ['scope' => 'value'],
+                                        'fromParent' => ['layoutId' => 'value'],
                                     ],
                                 ],
-                                'table-td-priority' => [
+                                'table-td-template' => [
                                     'template' => 't4web-admin/block/table-td-labeled',
                                     'capture' => 'table-td',
                                     'data' => [
                                         'static' => [
                                             'textValueMap' => [
-//                                                Logger::PRIORITY_ERR => 'ERR',
-//                                                Logger::PRIORITY_WARN => 'WARN',
-//                                                Logger::PRIORITY_INFO => 'INFO',
-//                                                Logger::PRIORITY_DEBUG => 'DEBUG',
-                                            ],
-                                            'colorValueMap' => [
-//                                                Logger::PRIORITY_ERR => 'danger',
-//                                                Logger::PRIORITY_WARN => 'warning',
-//                                                Logger::PRIORITY_INFO => 'info',
-//                                                Logger::PRIORITY_DEBUG => 'default',
+                                                2 => 'forgot-password',
                                             ],
                                         ],
-                                        'fromParent' => ['priority' => 'value'],
+                                        'fromParent' => ['templateId' => 'value'],
                                     ],
                                 ],
                                 'table-td-created-dt' => [
@@ -253,6 +258,21 @@ return [
                                         'fromParent' => 'id',
                                     ],
                                     'children' => [
+                                        'show-button' => [
+                                            'template' => 't4web-admin/block/link-button',
+                                            'capture' => 'button',
+                                            'data' => [
+                                                'static' => [
+                                                    'size' => 'xs',
+                                                    'color' => 'info',
+                                                    'text' => 'Show',
+                                                    'routeName' => 'admin-MailLogEntry-list'
+                                                ],
+                                                'fromParent' => [
+                                                    'id' => 'target'
+                                                ],
+                                            ],
+                                        ],
                                         'collapse-button' => [
                                             'template' => 't4web-admin/block/collapse-button',
                                             'capture' => 'button',
@@ -260,7 +280,7 @@ return [
                                                 'static' => [
                                                     'size' => 'xs',
                                                     'color' => 'primary',
-                                                    'text' => 'Show',
+                                                    'text' => 'Vars',
                                                 ],
                                                 'fromParent' => [
                                                     'id' => 'target'
@@ -275,7 +295,7 @@ return [
                                     'data' => [
                                         'fromParent' => [
                                             'id' => 'target',
-                                            'extras' => 'value',
+                                            'calculatedVars' => 'value',
                                         ],
                                         'static' => [
                                             'jsonPrettyPrint' => true,
@@ -291,7 +311,7 @@ return [
                 ],
                 'paginator' => [
                     'extend' => 't4web-admin-paginator',
-                    'viewModel' => 'Log\Log\ViewModel\PaginatorViewModel',
+                    'viewModel' => 'Mail\MailLogEntry\ViewModel\PaginatorViewModel',
                     'data' => [
                         'static' => [
                         ],
@@ -312,9 +332,8 @@ return [
                     'data' => [
                         'static' => [
                             'label' => 'Mail',
-                            'route' => 'admin-log-list',
+                            'route' => 'admin-MailLogEntry-list',
                             'icon' => 'fa-envelope',
-                            'priority' => '80'
                         ],
                     ],
                 ],

@@ -7,6 +7,14 @@ use Zend\View\Model\ViewModel;
 
 class Template
 {
+    const LAYOUT_DEFAULT = 1;
+    const FEEDBACK_ANSWER = 1;
+
+    /**
+     * @var int
+     */
+    private $id;
+
     /**
      * @var string
      */
@@ -18,9 +26,14 @@ class Template
     private $template;
 
     /**
-     * @var string
+     * @var ViewModel
      */
     private $layout;
+
+    /**
+     * @var int
+     */
+    private $layoutId;
 
     /**
      * @var RendererInterface
@@ -28,6 +41,7 @@ class Template
     private $renderer;
 
     public function __construct(
+        $templateId,
         array $templateConfig,
         RendererInterface $renderer,
         ViewModel $layout
@@ -42,8 +56,10 @@ class Template
             throw new Exception\TemplateException("Template template not configured.");
         }
 
+        $this->id = $templateId;
         $this->template = $templateConfig['template'];
         $this->layout = $layout;
+        $this->layoutId = $templateConfig['layout'];
         $this->renderer = $renderer;
     }
 
@@ -68,5 +84,21 @@ class Template
         $this->layout->setVariable('content', $content);
 
         return $this->renderer->render($this->layout);
+    }
+
+    /**
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLayoutId()
+    {
+        return $this->layoutId;
     }
 }

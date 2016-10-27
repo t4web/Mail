@@ -13,6 +13,7 @@ class TemplateTest extends \PHPUnit_Framework_TestCase
         $renderer = $this->prophesize(RendererInterface::class);
         $layout = $this->prophesize(ViewModel::class);
 
+        $templateId = 1;
         $templateConfig = [
             'subject' => 'Subject',
             'template' => 'template/feedback-answer',
@@ -20,6 +21,7 @@ class TemplateTest extends \PHPUnit_Framework_TestCase
         ];
 
         $template = new Template(
+            $templateId,
             $templateConfig,
             $renderer->reveal(),
             $layout->reveal()
@@ -33,6 +35,7 @@ class TemplateTest extends \PHPUnit_Framework_TestCase
         $renderer = $this->prophesize(RendererInterface::class);
         $layout = $this->prophesize(ViewModel::class);
 
+        $templateId = 1;
         $templateConfig = [
             'subject' => 'Subject',
             'template' => 'template/feedback-answer',
@@ -40,6 +43,7 @@ class TemplateTest extends \PHPUnit_Framework_TestCase
         ];
 
         $template = new Template(
+            $templateId,
             $templateConfig,
             $renderer->reveal(),
             $layout->reveal()

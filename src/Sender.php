@@ -47,7 +47,7 @@ class Sender
         $this->mailTransport->send($message);
 
         $event = new Event(
-            'mail-sended',
+            'mail-send:post',
             $this,
             [
                 'to' => $to,
