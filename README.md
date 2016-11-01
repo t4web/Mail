@@ -86,5 +86,5 @@ $data = [
     'message' => 'My message',
     'answer' => 'My answer',
 ];
-$this->sender->send($to, \T4web\Mail\Template::FEEDBACK_ANSWER, $data);
+$sender->send($to, \T4web\Mail\Template::FEEDBACK_ANSWER, $data);
 ```

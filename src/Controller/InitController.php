@@ -6,8 +6,6 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Zend\Console\Request as ConsoleRequest;
 use Zend\Mvc\MvcEvent;
 use Zend\Db\Adapter\Adapter as DbAdapter;
-use Zend\Db\Sql\Ddl;
-use Zend\Db\Sql\Sql;
 
 class InitController extends AbstractActionController
 {
@@ -27,27 +25,26 @@ class InitController extends AbstractActionController
             throw new \RuntimeException('You can only use this action from a console!');
         }
 
-        $table = new Ddl\CreateTable('mail_log');
-        $table->addColumn(new Ddl\Column\Integer('id', false, null, ['autoincrement' => true]));
-        $table->addColumn(new Ddl\Column\Varchar('mail_from', 100, true));
-        $table->addColumn(new Ddl\Column\Varchar('mail_to', 100, true));
-        $table->addColumn(new Ddl\Column\Varchar('subject', 250, true));
-        $table->addColumn(new Ddl\Column\Char('layout', 50, true));
-        $table->addColumn(new Ddl\Column\Char('template', 50, true));
-        $table->addColumn(new Ddl\Column\Text('body', null, true));
-        $table->addColumn(new Ddl\Column\Text('calculated_vars', null, true));
-        $table->addColumn(new Ddl\Column\Datetime('created_dt', false));
-        $table->addConstraint(new Ddl\Constraint\PrimaryKey('id'));
+        $query = "CREATE TABLE IF NOT EXISTS `mail_log` (
+              `id` INT(11) NOT NULL AUTO_INCREMENT,
+              `mail_from` VARCHAR(100) DEFAULT NULL,
+              `mail_to` VARCHAR(100) DEFAULT NULL,
+              `subject` VARCHAR(250) DEFAULT NULL,
+              `layout_id` INT DEFAULT 0,
+              `template_id` INT DEFAULT 0,
+              `body` TEXT DEFAULT NULL,
+              `calculated_vars` TEXT DEFAULT NULL,
+              `created_dt` datetime NOT NULL,
+              PRIMARY KEY (`id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;";
 
-        $this->createTable($table);
+        $this->createTable($query);
     }
 
-    private function createTable(Ddl\CreateTable $table)
+    private function createTable($query)
     {
-        $sql = new Sql($this->dbAdapter);
-
         try {
-            $this->dbAdapter->query($sql->buildSqlString($table), DbAdapter::QUERY_MODE_EXECUTE);
+            $this->dbAdapter->query($query, DbAdapter::QUERY_MODE_EXECUTE);
         } catch (\PDOException $e) {
             if (strpos($e->getMessage(), 'table or view already exists') === false) {
                 echo $e->getMessage() . PHP_EOL;
