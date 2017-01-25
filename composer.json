@@ -22,7 +22,7 @@
     "t4web/crud": "~1.0.0",
     "t4web/event-subscriber": "~1.0.0",
     "t4web/domain-module": "~1.2.0",
-    "t4web/default-service": "~0.1.0"
+    "t4web/default-service": "~1.0.0"
   },
   "require-dev" : {
     "phpunit/phpunit": "^4.8",
